@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Document</title>
+  <style>
+  #canvas {width: 600px; height: 600px; background: #eee;}
+  </style>
+  <script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec4 coords;
+    attribute float pointSize;
+    uniform mat4 transformMatrix;
+    attribute vec4 colors;
+    varying vec4 varyingColors;
+    void main(void) {
+      gl_position = transformMatrix * coords;
+      gl_pointSize = pointSize;
+      varyingColors = colors;
+    }
+  </script>
+  <script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+    uniform vec4 color;
+    varying vec4 varyingColors;
+    void main(void) {
+      gl_FragColor = varyingColors;
+    }
+  </script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.3.2/gl-matrix-min.js"></script>
+  <script src="js/init-shaders.js"></script>
+  <script src="js/get-shaders.js"></script>
+  <script src="js/webgl01.js"></script>
+</body>
+</html>
